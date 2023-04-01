@@ -10,10 +10,6 @@ Config.set('graphics', 'height', '800')
 
 
 class MainApp(MDApp):
-    def build(self):
-        self.theme_cls.theme_style = "Light"
-        self.theme_cls.primary_palette = "BlueGray"
-        return Builder.load_file('time.kv')
 
     def get_time(self, instance, time):
         self.root.ids.time_label.text = str(time)
@@ -41,30 +37,6 @@ class MainApp(MDApp):
         date_dialog = MDDatePicker()
         date_dialog.bind(on_save=self.on_save, on_cancel=self.on_cancel_date)
         date_dialog.open()
-
-    def open_color_picker(self):
-        color_picker = MDColorPicker(size_hint=(0.45, 0.85))
-        color_picker.open()
-        color_picker.bind(
-            on_select_color=self.on_select_color,
-            on_release=self.get_selected_color,
-        )
-
-    def update_color(self, color: list) -> None:
-        self.root.ids.toolbar.md_bg_color = color
-
-    def get_selected_color(
-        self,
-        instance_color_picker: MDColorPicker,
-        type_color: str,
-        selected_color: Union[list, str],
-    ):
-        print(f"Selected color is {selected_color}")
-        self.update_color(selected_color[:-1] + [1])
-
-    def on_select_color(self, instance_gradient_tab, color: list) -> None:
-        '''Called when a gradient image is clicked.'''
-
 
 if __name__ == '__main__':
     MainApp().run()
